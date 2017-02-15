@@ -4,7 +4,8 @@ class EmployeesController < ApplicationController
   end
   def show
     id = params[:id]
-    @employee = Unirest.get("http://localhost:3000/api/v2/employees/#{id}").body
+    employee_hash = Unirest.get("http://localhost:3000/api/v2/employees/#{id}").body #=> a hash of an employee
+    @employee = Employee.new(employee_hash)
   end
   def new
     render :new
