@@ -11,13 +11,13 @@ class Employee
   end
 
   def self.find(id)
-    employee_hash = Unirest.get("#{ENV['API_BASE_URL']}/employees/#{id}", :headers => {"X-User-Email" => ENV['API_EMAIL'], "Authorization" => ENV['API_KEY']}).body #=> a hash of an employee
+    employee_hash = Unirest.get("#{ENV['API_BASE_URL']}/employees/#{id}", :headers => {"X-User-Email" => ENV['API_EMAIL'], "Authorization" => "Token token=#{ENV['API_KEY']}"}).body #=> a hash of an employee
     Employee.new(employee_hash)
   end
 
   def self.all
     employees = [] 
-    api_employees = Unirest.get("#{ENV['API_BASE_URL']}/employees" , :headers => {"X-User-Email" => ENV['API_EMAIL'], "Authorization" => ENV['API_KEY']}).body #returns array of hashes
+    api_employees = Unirest.get("#{ENV['API_BASE_URL']}/employees.json", :headers => {"X-User-Email" => ENV['API_EMAIL'], "Authorization" => "Token token=#{ENV['API_KEY']}"}).body #returns array of hashes
     api_employees.each do |employee_hash|
       employees << Employee.new(employee_hash)
     end
