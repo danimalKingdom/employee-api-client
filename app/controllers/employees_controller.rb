@@ -1,6 +1,11 @@
 class EmployeesController < ApplicationController
   def index
-    @employees = Unirest.get("http://localhost:3000/api/v2/employees").body
+    # @employees = Unirest.get("http://localhost:3000/api/v2/employees").body
+    @employees = []
+    api_employees = Unirest.get("http://localhost:3000/api/v2/employees").body #returns array of hashes
+    api_employees.each do |employee_hash|
+      @employees << Employee.new(employee_hash)
+    end
   end
   def show
     id = params[:id]
