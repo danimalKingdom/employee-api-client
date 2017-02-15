@@ -5,3 +5,4 @@ Full Name: <%= @employee.full_name %><br>
 Email: <%= @employee.email %><br>
 Birthday: <%= @employee.friendly_birthday %><br>
 
+<%= button_to "Delete", "/employees/#{@employee.id}", method: :delete %>
