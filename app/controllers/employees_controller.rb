@@ -1,7 +1,7 @@
 class EmployeesController < ApplicationController
   def index
     # @employees = Unirest.get("http://localhost:3000/api/v2/employees").body
-    @employees = []
+    @employees = [] #Employee.all
     api_employees = Unirest.get("http://localhost:3000/api/v2/employees").body #returns array of hashes
     api_employees.each do |employee_hash|
       @employees << Employee.new(employee_hash)
@@ -9,8 +9,7 @@ class EmployeesController < ApplicationController
   end
   def show
     id = params[:id]
-    employee_hash = Unirest.get("http://localhost:3000/api/v2/employees/#{id}").body #=> a hash of an employee
-    @employee = Employee.new(employee_hash)
+    @employee = Employee.find(id)
   end
   def new
     render :new

@@ -11,8 +11,13 @@ class Employee
   end
 
   def friendly_birthday
-    birthday = Date.parse(@birthday)
-    birthday.strftime('%b %d, %Y')
+    birthdate = Date.parse(@birthday)
+    birthdate.strftime('%b %d, %Y')
+  end
+
+  def self.find(id)
+    employee_hash = Unirest.get("http://localhost:3000/api/v2/employees/#{id}").body #=> a hash of an employee
+    Employee.new(employee_hash)
   end
 
 end
